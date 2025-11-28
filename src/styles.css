@@ -1387,11 +1387,23 @@ body.loaded #app {
   outline-offset: 2px;
 }
 
-/* Responsive adjustments */
-@media (max-width: 768px) {
-  .toolbar-group.formatting,
-  .toolbar-group.headings {
-    display: none;
+/* ===================================
+   Responsive Design
+   =================================== */
+
+/* Tablet & Small Desktop (640px - 1024px) */
+@media (max-width: 1024px) {
+  .toolbar {
+    padding: 0 12px;
+    gap: 4px;
+  }
+
+  .toolbar-divider {
+    margin: 0 4px;
+  }
+
+  .tool-btn {
+    padding: 6px 8px;
   }
 
   .tool-btn span {
@@ -1399,14 +1411,492 @@ body.loaded #app {
   }
 
   .preview-wrapper {
-    padding: 24px 20px;
+    padding: 24px 32px;
+  }
+
+  .markdown-body {
+    font-size: 1rem;
+  }
+
+  #app.fullscreen-mode #editor {
+    padding: 40px 48px;
+  }
+
+  #app.fullscreen-mode .preview-wrapper {
+    padding: 40px 48px;
+  }
+}
+
+/* Tablet (640px - 768px) */
+@media (max-width: 768px) {
+  :root {
+    --header-height: 52px;
+    --toolbar-height: 48px;
+  }
+
+  /* Header adjustments */
+  .header {
+    padding: 0 16px;
+  }
+
+  .logo-text {
+    display: none;
+  }
+
+  .logo-mark {
+    font-size: 1.3rem;
+  }
+
+  .document-title input {
+    font-size: 1rem;
+    max-width: 160px;
+  }
+
+  .header-divider {
+    margin: 0 8px;
+  }
+
+  /* Toolbar adjustments */
+  .toolbar-group.formatting,
+  .toolbar-group.headings {
+    display: none;
+  }
+
+  .word-count {
+    display: none;
+  }
+
+  /* Main content */
+  .pane-header {
+    height: 32px;
+    padding: 0 16px;
+  }
+
+  .pane-label {
+    font-size: 0.65rem;
+  }
+
+  .editor-wrapper {
+    font-size: 0.85rem;
+  }
+
+  #editor {
+    padding: 12px 16px;
+    font-size: 0.85rem;
+  }
+
+  .line-numbers {
+    width: 40px;
+    padding: 12px 6px 12px 8px;
+    font-size: 0.75rem;
+  }
+
+  .preview-wrapper {
+    padding: 20px;
   }
 
   .markdown-body h1 {
-    font-size: 1.8rem;
+    font-size: 1.75rem;
   }
 
   .markdown-body h2 {
-    font-size: 1.4rem;
+    font-size: 1.35rem;
+  }
+
+  .markdown-body h3 {
+    font-size: 1.15rem;
+  }
+
+  /* Hide divider handle on tablet - use view toggle instead */
+  .divider-handle {
+    width: 8px;
+  }
+
+  .divider-grip {
+    display: none;
+  }
+
+  /* Status bar */
+  .status-bar {
+    padding: 0 12px;
+    font-size: 0.65rem;
+  }
+}
+
+/* Mobile (< 640px) */
+@media (max-width: 640px) {
+  :root {
+    --header-height: 48px;
+    --toolbar-height: 44px;
+    --status-height: 32px;
+  }
+
+  /* Header - minimal */
+  .header {
+    padding: 0 12px;
+  }
+
+  .header-left {
+    flex: 0 0 auto;
+  }
+
+  .header-center {
+    flex: 1;
+    min-width: 0;
+  }
+
+  .header-right {
+    flex: 0 0 auto;
+    gap: 4px;
+  }
+
+  .document-title input {
+    font-size: 0.9rem;
+    max-width: 120px;
+  }
+
+  .header-divider {
+    display: none;
+  }
+
+  .theme-toggle {
+    width: 32px;
+    height: 32px;
+  }
+
+  .view-toggle {
+    padding: 2px;
+    gap: 2px;
+  }
+
+  .toggle-btn {
+    width: 32px;
+    height: 28px;
+  }
+
+  .toggle-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Toolbar - essential actions only */
+  .toolbar {
+    padding: 0 8px;
+    gap: 2px;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .toolbar::-webkit-scrollbar {
+    display: none;
+  }
+
+  .toolbar-group {
+    gap: 1px;
+  }
+
+  .toolbar-group.file-group {
+    flex-shrink: 0;
+  }
+
+  .toolbar-divider {
+    display: none;
+  }
+
+  .toolbar-spacer {
+    display: none;
+  }
+
+  .tool-btn {
+    padding: 8px;
+    min-width: 36px;
+    min-height: 36px;
+  }
+
+  .tool-btn svg {
+    width: 18px;
+    height: 18px;
+  }
+
+  .history-btn {
+    width: 36px;
+    height: 36px;
+  }
+
+  /* Hide less essential toolbar groups on mobile */
+  .toolbar-group:not(.file-group):not(.history-group) {
+    display: none;
+  }
+
+  /* Main content - force single pane on mobile */
+  .main-content {
+    position: relative;
+  }
+
+  .main-content[data-view="split"] .editor-pane,
+  .main-content[data-view="split"] .preview-pane {
+    width: 100%;
+    position: absolute;
+    inset: 0;
+  }
+
+  .main-content[data-view="split"] .editor-pane {
+    z-index: 1;
+  }
+
+  .main-content[data-view="split"] .preview-pane {
+    z-index: 0;
+    opacity: 0;
+    pointer-events: none;
+  }
+
+  .main-content[data-view="split"] .divider-handle {
+    display: none;
+  }
+
+  /* Pane headers */
+  .pane-header {
+    height: 28px;
+    padding: 0 12px;
+  }
+
+  .pane-decoration {
+    display: none;
+  }
+
+  /* Editor */
+  .line-numbers {
+    width: 36px;
+    padding: 10px 4px 10px 6px;
+    font-size: 0.7rem;
+  }
+
+  #editor {
+    padding: 10px 12px;
+    font-size: 16px; /* Prevent iOS zoom on focus */
+    line-height: 1.6;
+  }
+
+  /* Preview */
+  .preview-wrapper {
+    padding: 16px;
+  }
+
+  .markdown-body {
+    font-size: 0.95rem;
+    line-height: 1.7;
+  }
+
+  .markdown-body h1 {
+    font-size: 1.5rem;
+    margin-top: 1.5rem;
+  }
+
+  .markdown-body h2 {
+    font-size: 1.25rem;
+    padding-left: 12px;
+  }
+
+  .markdown-body h2::before {
+    width: 3px;
+  }
+
+  .markdown-body h3 {
+    font-size: 1.1rem;
+  }
+
+  .markdown-body pre {
+    padding: 1rem;
+    font-size: 0.8rem;
+    border-radius: 6px;
+  }
+
+  .markdown-body blockquote {
+    padding: 0.75rem 1rem;
+    margin: 1rem 0;
+  }
+
+  /* Status bar */
+  .status-bar {
+    padding: 0 12px;
+  }
+
+  .status-left,
+  .status-right {
+    gap: 8px;
+  }
+
+  /* Fullscreen mode adjustments */
+  #app.fullscreen-mode #editor {
+    padding: 20px 16px;
+    font-size: 16px;
+  }
+
+  #app.fullscreen-mode .line-numbers {
+    padding-top: 20px;
+  }
+
+  #app.fullscreen-mode .preview-wrapper {
+    padding: 20px 16px;
+  }
+
+  .exit-fullscreen {
+    top: 8px;
+    right: 8px;
+    padding: 6px 10px;
+    font-size: 0.7rem;
+  }
+
+  .exit-fullscreen span {
+    display: none;
+  }
+
+  /* Toast */
+  .toast {
+    bottom: 48px;
+    padding: 10px 20px;
+    font-size: 0.8rem;
+    max-width: calc(100vw - 32px);
+  }
+}
+
+/* Small mobile (< 400px) */
+@media (max-width: 400px) {
+  .header-left {
+    display: none;
+  }
+
+  .document-title input {
+    text-align: left;
+    padding-left: 0;
+  }
+
+  .tool-btn {
+    padding: 6px;
+    min-width: 32px;
+    min-height: 32px;
+  }
+
+  .tool-btn svg {
+    width: 16px;
+    height: 16px;
+  }
+
+  /* Only show most essential file buttons */
+  #btn-new,
+  #btn-save-as {
+    display: none;
+  }
+}
+
+/* Touch device optimizations */
+@media (hover: none) and (pointer: coarse) {
+  .tool-btn,
+  .format-btn,
+  .history-btn,
+  .toggle-btn,
+  .theme-toggle {
+    min-height: 44px;
+    min-width: 44px;
+  }
+
+  /* Remove hover effects on touch - they feel sticky */
+  .tool-btn:hover,
+  .format-btn:hover,
+  .history-btn:hover {
+    background: transparent;
+    border-color: transparent;
+  }
+
+  .tool-btn:active,
+  .format-btn:active,
+  .history-btn:active {
+    background: var(--bg-hover);
+  }
+
+  /* Larger touch target for divider */
+  .divider-handle {
+    width: 20px;
+  }
+}
+
+/* Landscape mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+  :root {
+    --header-height: 40px;
+    --toolbar-height: 36px;
+    --status-height: 24px;
+  }
+
+  .pane-header {
+    display: none;
+  }
+
+  .status-bar {
+    display: none;
+  }
+}
+
+/* High DPI / Retina adjustments */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+  .divider-line {
+    width: 0.5px;
+  }
+
+  .toolbar-divider {
+    width: 0.5px;
+  }
+}
+
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}
+
+/* Print styles */
+@media print {
+  .header,
+  .toolbar,
+  .status-bar,
+  .editor-pane,
+  .divider-handle,
+  .exit-fullscreen {
+    display: none !important;
+  }
+
+  .main-content {
+    display: block !important;
+  }
+
+  .preview-pane {
+    width: 100% !important;
+    height: auto !important;
+    position: static !important;
+  }
+
+  .preview-wrapper {
+    padding: 0 !important;
+    overflow: visible !important;
+  }
+
+  .markdown-body {
+    max-width: 100%;
+    color: #000;
+  }
+
+  .markdown-body pre {
+    border: 1px solid #ddd;
+    background: #f5f5f5 !important;
+  }
+
+  .markdown-body code {
+    color: #000 !important;
   }
 }
