@@ -247,6 +247,7 @@ console.log(greet('World'));
   document.getElementById('btn-new')?.addEventListener('click', handleNew);
   document.getElementById('btn-open')?.addEventListener('click', handleOpen);
   document.getElementById('btn-save')?.addEventListener('click', handleSave);
+  document.getElementById('btn-save-as')?.addEventListener('click', handleSaveAs);
   document.getElementById('btn-export')?.addEventListener('click', handleExport);
 
   // Undo/Redo buttons
@@ -349,11 +350,18 @@ function handleEditorInput() {
 // Handle keyboard shortcuts
 function handleKeydown(e: KeyboardEvent) {
   if (e.ctrlKey || e.metaKey) {
-    // Handle Ctrl+Shift+Z for redo
-    if (e.shiftKey && e.key.toLowerCase() === 'z') {
-      e.preventDefault();
-      handleRedo();
-      return;
+    // Handle Ctrl+Shift combinations
+    if (e.shiftKey) {
+      switch (e.key.toLowerCase()) {
+        case 'z':
+          e.preventDefault();
+          handleRedo();
+          return;
+        case 's':
+          e.preventDefault();
+          handleSaveAs();
+          return;
+      }
     }
 
     switch (e.key.toLowerCase()) {

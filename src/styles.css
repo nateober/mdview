@@ -455,6 +455,10 @@ body.loaded #app {
   transform: translateY(-1px) scale(1.05);
 }
 
+#btn-save-as:hover svg {
+  transform: translate(2px, -2px);
+}
+
 #btn-export:hover svg {
   transform: translateY(2px);
 }
