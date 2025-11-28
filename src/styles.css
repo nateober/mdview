@@ -686,6 +686,7 @@ body.loaded #app {
   display: flex;
   align-items: center;
   justify-content: center;
+  gap: 8px;
   min-width: 32px;
   height: 32px;
   padding: 0 8px;
@@ -698,6 +699,14 @@ body.loaded #app {
   font-weight: 500;
   cursor: pointer;
   transition: all var(--transition-fast);
+}
+
+/* Button labels - hidden by default on desktop */
+.btn-label {
+  display: none;
+  font-family: var(--font-body);
+  font-size: 0.85rem;
+  font-weight: 400;
 }
 
 /* Typography format buttons - use editorial serif */
@@ -1660,6 +1669,18 @@ body.loaded #app {
     display: inline;
   }
 
+  /* Show button labels in dropdown on tablet */
+  .toolbar-group .toolbar-group-items .btn-label {
+    display: inline;
+  }
+
+  /* Ensure format buttons have proper layout in dropdown */
+  .toolbar-group .toolbar-group-items .format-btn,
+  .toolbar-group .toolbar-group-items .history-btn {
+    justify-content: flex-start;
+    gap: 10px;
+  }
+
   .word-count {
     display: none;
   }
@@ -1850,6 +1871,18 @@ body.loaded #app {
   .toolbar-group .toolbar-group-items .tool-btn span {
     display: inline;
     margin-left: 4px;
+  }
+
+  /* Show button labels in dropdown on mobile */
+  .toolbar-group .toolbar-group-items .btn-label {
+    display: inline;
+  }
+
+  /* Ensure format buttons have proper layout in dropdown on mobile */
+  .toolbar-group .toolbar-group-items .format-btn,
+  .toolbar-group .toolbar-group-items .history-btn {
+    justify-content: flex-start;
+    gap: 12px;
   }
 
   .toolbar-group .toolbar-group-items .tool-btn svg,
