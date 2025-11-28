@@ -1456,10 +1456,19 @@ body.loaded #app {
     margin: 0 8px;
   }
 
-  /* Toolbar adjustments */
-  .toolbar-group.formatting,
-  .toolbar-group.headings {
+  /* Toolbar - make scrollable to keep all tools accessible */
+  .toolbar {
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    scrollbar-width: none;
+  }
+
+  .toolbar::-webkit-scrollbar {
     display: none;
+  }
+
+  .toolbar-group {
+    flex-shrink: 0;
   }
 
   .word-count {
@@ -1624,9 +1633,14 @@ body.loaded #app {
     height: 36px;
   }
 
-  /* Hide less essential toolbar groups on mobile */
-  .toolbar-group:not(.file-group):not(.history-group) {
-    display: none;
+  /* Keep all toolbar groups - make toolbar scrollable */
+  .toolbar-group {
+    flex-shrink: 0;
+  }
+
+  .toolbar-group.formatting,
+  .toolbar-group.headings {
+    display: flex;
   }
 
   /* Main content - force single pane on mobile */
