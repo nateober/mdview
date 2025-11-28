@@ -550,6 +550,8 @@ body.loaded #app {
   font-size: 0.85rem;
   cursor: pointer;
   transition: all var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 .tool-btn:hover {
@@ -699,6 +701,8 @@ body.loaded #app {
   font-weight: 500;
   cursor: pointer;
   transition: all var(--transition-fast);
+  -webkit-tap-highlight-color: transparent;
+  touch-action: manipulation;
 }
 
 /* Button labels - hidden by default on desktop */

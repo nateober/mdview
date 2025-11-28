@@ -332,7 +332,7 @@ function init() {
   initToolbarGroups();
 
   // Prevent toolbar buttons from stealing focus (preserves text selection)
-  // Store selection when clicking toolbar buttons, restore when editor refocuses
+  // Store selection when editor loses focus for toolbar interactions
   let savedSelection: { start: number; end: number } | null = null;
 
   editor.addEventListener('blur', () => {
@@ -351,9 +351,20 @@ function init() {
     }
   });
 
+  // For desktop: prevent mousedown from stealing focus
   document.querySelectorAll('.toolbar button, .toolbar-group-items button').forEach(btn => {
     btn.addEventListener('mousedown', (e) => {
       e.preventDefault();
+    });
+  });
+
+  // For mobile: handle touch events on format buttons to ensure they trigger
+  document.querySelectorAll('.format-btn, .tool-btn, .history-btn').forEach(btn => {
+    btn.addEventListener('touchend', (e) => {
+      // Prevent the delayed click and handle immediately
+      e.preventDefault();
+      // Trigger click handler
+      (btn as HTMLElement).click();
     });
   });
 
