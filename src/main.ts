@@ -34,18 +34,27 @@ declare global {
   }
 }
 
-// Configure marked with syntax highlighting
-marked.setOptions({
-  highlight: function(code: string, lang: string) {
-    if (lang && hljs.getLanguage(lang)) {
-      try {
-        return hljs.highlight(code, { language: lang }).value;
-      } catch {
-        return code;
-      }
+// Configure marked with syntax highlighting using custom renderer
+const renderer = new marked.Renderer();
+renderer.code = function(code: string | { text: string; lang?: string }, language?: string): string {
+  // Handle both old and new marked API
+  const codeText = typeof code === 'string' ? code : code.text;
+  const lang = typeof code === 'string' ? language : code.lang;
+
+  if (lang && hljs.getLanguage(lang)) {
+    try {
+      const highlighted = hljs.highlight(codeText, { language: lang }).value;
+      return `<pre><code class="hljs language-${lang}">${highlighted}</code></pre>`;
+    } catch {
+      // Fall through to auto-highlight
     }
-    return hljs.highlightAuto(code).value;
-  },
+  }
+  const highlighted = hljs.highlightAuto(codeText).value;
+  return `<pre><code class="hljs">${highlighted}</code></pre>`;
+};
+
+marked.setOptions({
+  renderer,
   breaks: true,
   gfm: true,
 });
