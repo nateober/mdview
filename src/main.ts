@@ -331,6 +331,13 @@ function init() {
   // Initialize collapsible toolbar groups
   initToolbarGroups();
 
+  // Prevent toolbar buttons from stealing focus (preserves text selection)
+  document.querySelectorAll('.toolbar button, .toolbar-group-items button').forEach(btn => {
+    btn.addEventListener('mousedown', (e) => {
+      e.preventDefault();
+    });
+  });
+
   // Try to load from localStorage, otherwise show welcome content
   const loaded = loadFromLocalStorage();
 
