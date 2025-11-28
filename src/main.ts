@@ -111,9 +111,26 @@ function toggleTheme() {
   showToast(`Switched to ${newTheme} mode`);
 }
 
-// Toolbar collapse management
+// Toolbar collapse and dropdown management
+const MOBILE_BREAKPOINT = 768;
+
+function isMobileView(): boolean {
+  return window.innerWidth <= MOBILE_BREAKPOINT;
+}
+
+function closeAllDropdowns() {
+  document.querySelectorAll('.toolbar-group.dropdown-open').forEach(group => {
+    group.classList.remove('dropdown-open');
+    const header = group.querySelector('.toolbar-group-header');
+    header?.setAttribute('aria-expanded', 'false');
+  });
+  document.getElementById('toolbar-backdrop')?.classList.remove('active');
+}
+
 function initToolbarGroups() {
-  // Load saved collapsed states
+  const backdrop = document.getElementById('toolbar-backdrop');
+
+  // Load saved collapsed states (only for desktop)
   let savedStates: Record<string, boolean> = {};
   try {
     const saved = localStorage.getItem(STORAGE_KEYS.toolbarCollapsed);
@@ -129,29 +146,91 @@ function initToolbarGroups() {
     const groupEl = group as HTMLElement;
     const groupId = groupEl.dataset.group;
     const header = groupEl.querySelector('.toolbar-group-header') as HTMLButtonElement;
+    const items = groupEl.querySelector('.toolbar-group-items') as HTMLElement;
 
     if (!groupId || !header) return;
 
-    // Restore collapsed state
-    if (savedStates[groupId]) {
+    // Restore collapsed state (desktop only)
+    if (savedStates[groupId] && !isMobileView()) {
       groupEl.classList.add('collapsed');
       header.setAttribute('aria-expanded', 'false');
     }
 
     // Add click handler
-    header.addEventListener('click', () => {
-      const isCollapsed = groupEl.classList.toggle('collapsed');
-      header.setAttribute('aria-expanded', String(!isCollapsed));
+    header.addEventListener('click', (e) => {
+      e.stopPropagation();
 
-      // Save state
-      try {
-        const states: Record<string, boolean> = JSON.parse(
-          localStorage.getItem(STORAGE_KEYS.toolbarCollapsed) || '{}'
-        );
-        states[groupId] = isCollapsed;
-        localStorage.setItem(STORAGE_KEYS.toolbarCollapsed, JSON.stringify(states));
-      } catch (e) {
-        console.warn('Failed to save toolbar state:', e);
+      if (isMobileView()) {
+        // Mobile: toggle dropdown
+        const isOpen = groupEl.classList.contains('dropdown-open');
+
+        // Close other dropdowns first
+        closeAllDropdowns();
+
+        if (!isOpen) {
+          groupEl.classList.add('dropdown-open');
+          header.setAttribute('aria-expanded', 'true');
+          backdrop?.classList.add('active');
+        }
+      } else {
+        // Desktop: toggle collapsed state
+        const isCollapsed = groupEl.classList.contains('collapsed');
+
+        if (isCollapsed) {
+          // If collapsed, clicking opens dropdown
+          const isDropdownOpen = groupEl.classList.contains('dropdown-open');
+          closeAllDropdowns();
+
+          if (!isDropdownOpen) {
+            groupEl.classList.add('dropdown-open');
+            header.setAttribute('aria-expanded', 'true');
+            backdrop?.classList.add('active');
+          }
+        } else {
+          // If expanded, collapse it
+          groupEl.classList.add('collapsed');
+          header.setAttribute('aria-expanded', 'false');
+
+          // Save state
+          try {
+            const states: Record<string, boolean> = JSON.parse(
+              localStorage.getItem(STORAGE_KEYS.toolbarCollapsed) || '{}'
+            );
+            states[groupId] = true;
+            localStorage.setItem(STORAGE_KEYS.toolbarCollapsed, JSON.stringify(states));
+          } catch (e) {
+            console.warn('Failed to save toolbar state:', e);
+          }
+        }
+      }
+    });
+
+    // Double-click to expand on desktop
+    header.addEventListener('dblclick', (e) => {
+      if (!isMobileView() && groupEl.classList.contains('collapsed')) {
+        e.preventDefault();
+        groupEl.classList.remove('collapsed');
+        closeAllDropdowns();
+        header.setAttribute('aria-expanded', 'true');
+
+        // Save state
+        try {
+          const states: Record<string, boolean> = JSON.parse(
+            localStorage.getItem(STORAGE_KEYS.toolbarCollapsed) || '{}'
+          );
+          states[groupId] = false;
+          localStorage.setItem(STORAGE_KEYS.toolbarCollapsed, JSON.stringify(states));
+        } catch (e) {
+          console.warn('Failed to save toolbar state:', e);
+        }
+      }
+    });
+
+    // Close dropdown when clicking an item
+    items?.addEventListener('click', (e) => {
+      const target = e.target as HTMLElement;
+      if (target.closest('.tool-btn, .format-btn, .history-btn')) {
+        closeAllDropdowns();
       }
     });
 
@@ -161,7 +240,25 @@ function initToolbarGroups() {
         e.preventDefault();
         header.click();
       }
+      if (e.key === 'Escape') {
+        closeAllDropdowns();
+      }
     });
+  });
+
+  // Close dropdowns when clicking backdrop
+  backdrop?.addEventListener('click', closeAllDropdowns);
+
+  // Close dropdowns on Escape key
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeAllDropdowns();
+    }
+  });
+
+  // Handle window resize - close dropdowns when switching views
+  window.addEventListener('resize', () => {
+    closeAllDropdowns();
   });
 }
 

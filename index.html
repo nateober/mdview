@@ -76,11 +76,18 @@
       </div>
     </header>
 
+    <!-- Toolbar backdrop for closing dropdowns -->
+    <div class="toolbar-backdrop" id="toolbar-backdrop"></div>
+
     <!-- Toolbar -->
     <div class="toolbar">
       <!-- File Group -->
       <div class="toolbar-group" data-group="file">
-        <button class="toolbar-group-header" aria-expanded="true" type="button">
+        <button class="toolbar-group-header" aria-expanded="true" aria-haspopup="true" type="button">
+          <svg class="group-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+            <polyline points="14 2 14 8 20 8"/>
+          </svg>
           <span class="group-label">File</span>
           <svg class="chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="6 9 12 15 18 9"/>
@@ -135,7 +142,11 @@
 
       <!-- Edit Group (Undo/Redo) -->
       <div class="toolbar-group" data-group="edit">
-        <button class="toolbar-group-header" aria-expanded="true" type="button">
+        <button class="toolbar-group-header" aria-expanded="true" aria-haspopup="true" type="button">
+          <svg class="group-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="1 4 1 10 7 10"/>
+            <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+          </svg>
           <span class="group-label">Edit</span>
           <svg class="chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="6 9 12 15 18 9"/>
@@ -161,7 +172,12 @@
 
       <!-- Format Group -->
       <div class="toolbar-group" data-group="format">
-        <button class="toolbar-group-header" aria-expanded="true" type="button">
+        <button class="toolbar-group-header" aria-expanded="true" aria-haspopup="true" type="button">
+          <svg class="group-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 7V4h16v3"/>
+            <path d="M9 20h6"/>
+            <path d="M12 4v16"/>
+          </svg>
           <span class="group-label">Format</span>
           <svg class="chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="6 9 12 15 18 9"/>
@@ -193,7 +209,13 @@
 
       <!-- Headings Group -->
       <div class="toolbar-group" data-group="headings">
-        <button class="toolbar-group-header" aria-expanded="true" type="button">
+        <button class="toolbar-group-header" aria-expanded="true" aria-haspopup="true" type="button">
+          <svg class="group-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <path d="M4 12h8"/>
+            <path d="M4 18V6"/>
+            <path d="M12 18V6"/>
+            <path d="M17 12l3-2v8"/>
+          </svg>
           <span class="group-label">Headings</span>
           <svg class="chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="6 9 12 15 18 9"/>
@@ -216,7 +238,12 @@
 
       <!-- Insert Group -->
       <div class="toolbar-group" data-group="insert">
-        <button class="toolbar-group-header" aria-expanded="true" type="button">
+        <button class="toolbar-group-header" aria-expanded="true" aria-haspopup="true" type="button">
+          <svg class="group-icon" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="12" cy="12" r="10"/>
+            <line x1="12" y1="8" x2="12" y2="16"/>
+            <line x1="8" y1="12" x2="16" y2="12"/>
+          </svg>
           <span class="group-label">Insert</span>
           <svg class="chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
             <polyline points="6 9 12 15 18 9"/>
