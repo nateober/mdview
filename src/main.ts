@@ -332,6 +332,25 @@ function init() {
   initToolbarGroups();
 
   // Prevent toolbar buttons from stealing focus (preserves text selection)
+  // Store selection when clicking toolbar buttons, restore when editor refocuses
+  let savedSelection: { start: number; end: number } | null = null;
+
+  editor.addEventListener('blur', () => {
+    savedSelection = {
+      start: editor.selectionStart,
+      end: editor.selectionEnd
+    };
+  });
+
+  editor.addEventListener('focus', () => {
+    // Restore selection if we have one saved (for after toolbar interactions)
+    if (savedSelection && savedSelection.start !== savedSelection.end) {
+      setTimeout(() => {
+        editor.setSelectionRange(savedSelection!.start, savedSelection!.end);
+      }, 0);
+    }
+  });
+
   document.querySelectorAll('.toolbar button, .toolbar-group-items button').forEach(btn => {
     btn.addEventListener('mousedown', (e) => {
       e.preventDefault();
