@@ -384,6 +384,9 @@ body.loaded #app {
   padding: 0 16px;
   background: var(--bg-secondary);
   border-bottom: 1px solid var(--border-subtle);
+  overflow: visible;
+  position: relative;
+  z-index: 50;
 }
 
 /* Collapsible Toolbar Groups */
@@ -1586,15 +1589,9 @@ body.loaded #app {
     margin: 0 8px;
   }
 
-  /* Toolbar - make scrollable to keep all tools accessible */
+  /* Toolbar - allow dropdowns to overflow */
   .toolbar {
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-
-  .toolbar::-webkit-scrollbar {
-    display: none;
+    overflow: visible;
   }
 
   .toolbar-group {
@@ -1780,17 +1777,11 @@ body.loaded #app {
     height: 16px;
   }
 
-  /* Toolbar - essential actions only */
+  /* Toolbar - allow dropdowns to overflow */
   .toolbar {
     padding: 0 8px;
-    gap: 2px;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
-    scrollbar-width: none;
-  }
-
-  .toolbar::-webkit-scrollbar {
-    display: none;
+    gap: 4px;
+    overflow: visible;
   }
 
   .toolbar-group {
