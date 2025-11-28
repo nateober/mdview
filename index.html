@@ -78,133 +78,187 @@
 
     <!-- Toolbar -->
     <div class="toolbar">
-      <div class="toolbar-group file-group">
-        <button class="tool-btn" id="btn-new" title="New Document">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
-            <polyline points="14 2 14 8 20 8"/>
-            <line x1="12" y1="18" x2="12" y2="12"/>
-            <line x1="9" y1="15" x2="15" y2="15"/>
+      <!-- File Group -->
+      <div class="toolbar-group" data-group="file">
+        <button class="toolbar-group-header" aria-expanded="true" type="button">
+          <span class="group-label">File</span>
+          <svg class="chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"/>
           </svg>
-          <span>New</span>
         </button>
-        <button class="tool-btn" id="btn-open" title="Open Markdown File">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M5 19a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4l2 2h9a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5z"/>
-            <path d="M3 7v10"/>
-          </svg>
-          <span>Open</span>
-        </button>
-        <button class="tool-btn" id="btn-save" title="Save (Ctrl+S)">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
-            <polyline points="17 21 17 13 7 13 7 21"/>
-            <polyline points="7 3 7 8 15 8"/>
-          </svg>
-          <span>Save</span>
-        </button>
-        <button class="tool-btn" id="btn-save-as" title="Save As (Ctrl+Shift+S)">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M17 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
-            <polyline points="15 21 15 15 7 15 7 21"/>
-            <polyline points="7 3 7 8 13 8"/>
-            <path d="M18 15l3 3m0 0l-3 3m3-3H14"/>
-          </svg>
-          <span>Save As</span>
-        </button>
-        <button class="tool-btn" id="btn-export" title="Export as HTML">
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
-            <polyline points="7 10 12 15 17 10"/>
-            <line x1="12" y1="15" x2="12" y2="3"/>
-          </svg>
-          <span>Export</span>
-        </button>
+        <div class="toolbar-group-items">
+          <button class="tool-btn" id="btn-new" title="New Document">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M14.5 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V7.5L14.5 2z"/>
+              <polyline points="14 2 14 8 20 8"/>
+              <line x1="12" y1="18" x2="12" y2="12"/>
+              <line x1="9" y1="15" x2="15" y2="15"/>
+            </svg>
+            <span>New</span>
+          </button>
+          <button class="tool-btn" id="btn-open" title="Open Markdown File">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M5 19a2 2 0 0 1-2-2V7a2 2 0 0 1 2-2h4l2 2h9a2 2 0 0 1 2 2v8a2 2 0 0 1-2 2H5z"/>
+              <path d="M3 7v10"/>
+            </svg>
+            <span>Open</span>
+          </button>
+          <button class="tool-btn" id="btn-save" title="Save (Ctrl+S)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M19 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+              <polyline points="17 21 17 13 7 13 7 21"/>
+              <polyline points="7 3 7 8 15 8"/>
+            </svg>
+            <span>Save</span>
+          </button>
+          <button class="tool-btn" id="btn-save-as" title="Save As (Ctrl+Shift+S)">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M17 21H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h11l5 5v11a2 2 0 0 1-2 2z"/>
+              <polyline points="15 21 15 15 7 15 7 21"/>
+              <polyline points="7 3 7 8 13 8"/>
+              <path d="M18 15l3 3m0 0l-3 3m3-3H14"/>
+            </svg>
+            <span>Save As</span>
+          </button>
+          <button class="tool-btn" id="btn-export" title="Export as HTML">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/>
+              <polyline points="7 10 12 15 17 10"/>
+              <line x1="12" y1="15" x2="12" y2="3"/>
+            </svg>
+            <span>Export</span>
+          </button>
+        </div>
       </div>
+
       <div class="toolbar-divider"></div>
-      <div class="toolbar-group history-group">
-        <button class="history-btn" id="btn-undo" title="Undo (Ctrl+Z)">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="1 4 1 10 7 10"/>
-            <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+
+      <!-- Edit Group (Undo/Redo) -->
+      <div class="toolbar-group" data-group="edit">
+        <button class="toolbar-group-header" aria-expanded="true" type="button">
+          <span class="group-label">Edit</span>
+          <svg class="chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"/>
           </svg>
         </button>
-        <button class="history-btn" id="btn-redo" title="Redo (Ctrl+Shift+Z)">
-          <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="23 4 23 10 17 10"/>
-            <path d="M20.49 15a9 9 0 1 1-2.13-9.36L23 10"/>
-          </svg>
-        </button>
+        <div class="toolbar-group-items">
+          <button class="history-btn" id="btn-undo" title="Undo (Ctrl+Z)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="1 4 1 10 7 10"/>
+              <path d="M3.51 15a9 9 0 1 0 2.13-9.36L1 10"/>
+            </svg>
+          </button>
+          <button class="history-btn" id="btn-redo" title="Redo (Ctrl+Shift+Z)">
+            <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="23 4 23 10 17 10"/>
+              <path d="M20.49 15a9 9 0 1 1-2.13-9.36L23 10"/>
+            </svg>
+          </button>
+        </div>
       </div>
+
       <div class="toolbar-divider"></div>
-      <div class="toolbar-group formatting">
-        <button class="format-btn format-text" data-format="bold" title="Bold (Ctrl+B)">
-          <span class="fmt-bold">B</span>
-        </button>
-        <button class="format-btn format-text" data-format="italic" title="Italic (Ctrl+I)">
-          <span class="fmt-italic">I</span>
-        </button>
-        <button class="format-btn format-text" data-format="strikethrough" title="Strikethrough">
-          <span class="fmt-strike">S</span>
-        </button>
-        <button class="format-btn" data-format="code" title="Inline Code">
-          <span class="fmt-code">&lt;/&gt;</span>
-        </button>
-        <button class="format-btn" data-format="link" title="Insert Link (Ctrl+K)">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
-            <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+
+      <!-- Format Group -->
+      <div class="toolbar-group" data-group="format">
+        <button class="toolbar-group-header" aria-expanded="true" type="button">
+          <span class="group-label">Format</span>
+          <svg class="chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"/>
           </svg>
         </button>
+        <div class="toolbar-group-items">
+          <button class="format-btn format-text" data-format="bold" title="Bold (Ctrl+B)">
+            <span class="fmt-bold">B</span>
+          </button>
+          <button class="format-btn format-text" data-format="italic" title="Italic (Ctrl+I)">
+            <span class="fmt-italic">I</span>
+          </button>
+          <button class="format-btn format-text" data-format="strikethrough" title="Strikethrough">
+            <span class="fmt-strike">S</span>
+          </button>
+          <button class="format-btn" data-format="code" title="Inline Code">
+            <span class="fmt-code">&lt;/&gt;</span>
+          </button>
+          <button class="format-btn" data-format="link" title="Insert Link (Ctrl+K)">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M10 13a5 5 0 0 0 7.54.54l3-3a5 5 0 0 0-7.07-7.07l-1.72 1.71"/>
+              <path d="M14 11a5 5 0 0 0-7.54-.54l-3 3a5 5 0 0 0 7.07 7.07l1.71-1.71"/>
+            </svg>
+          </button>
+        </div>
       </div>
+
       <div class="toolbar-divider"></div>
-      <div class="toolbar-group headings">
-        <button class="format-btn heading-btn" data-format="h1" title="Heading 1">
-          <span class="h-label">H<sub>1</sub></span>
+
+      <!-- Headings Group -->
+      <div class="toolbar-group" data-group="headings">
+        <button class="toolbar-group-header" aria-expanded="true" type="button">
+          <span class="group-label">Headings</span>
+          <svg class="chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"/>
+          </svg>
         </button>
-        <button class="format-btn heading-btn" data-format="h2" title="Heading 2">
-          <span class="h-label">H<sub>2</sub></span>
-        </button>
-        <button class="format-btn heading-btn" data-format="h3" title="Heading 3">
-          <span class="h-label">H<sub>3</sub></span>
-        </button>
+        <div class="toolbar-group-items">
+          <button class="format-btn heading-btn" data-format="h1" title="Heading 1">
+            <span class="h-label">H<sub>1</sub></span>
+          </button>
+          <button class="format-btn heading-btn" data-format="h2" title="Heading 2">
+            <span class="h-label">H<sub>2</sub></span>
+          </button>
+          <button class="format-btn heading-btn" data-format="h3" title="Heading 3">
+            <span class="h-label">H<sub>3</sub></span>
+          </button>
+        </div>
       </div>
+
       <div class="toolbar-divider"></div>
-      <div class="toolbar-group">
-        <button class="format-btn" data-format="quote" title="Blockquote">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V21z"/>
-            <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3z"/>
+
+      <!-- Insert Group -->
+      <div class="toolbar-group" data-group="insert">
+        <button class="toolbar-group-header" aria-expanded="true" type="button">
+          <span class="group-label">Insert</span>
+          <svg class="chevron" width="10" height="10" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round">
+            <polyline points="6 9 12 15 18 9"/>
           </svg>
         </button>
-        <button class="format-btn" data-format="ul" title="Unordered List">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="9" y1="6" x2="20" y2="6"/>
-            <line x1="9" y1="12" x2="20" y2="12"/>
-            <line x1="9" y1="18" x2="20" y2="18"/>
-            <circle cx="4" cy="6" r="2" fill="currentColor" stroke="none"/>
-            <circle cx="4" cy="12" r="2" fill="currentColor" stroke="none"/>
-            <circle cx="4" cy="18" r="2" fill="currentColor" stroke="none"/>
-          </svg>
-        </button>
-        <button class="format-btn" data-format="ol" title="Ordered List">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <line x1="10" y1="6" x2="20" y2="6"/>
-            <line x1="10" y1="12" x2="20" y2="12"/>
-            <line x1="10" y1="18" x2="20" y2="18"/>
-            <path d="M4 6h1v4" stroke="none" fill="currentColor"/>
-            <path d="M3 10h3" stroke="none" fill="currentColor"/>
-            <path d="M5 14H3c0-1 2-2 2-3s-1-1.5-2-1" stroke="currentColor" fill="none" stroke-width="1.5"/>
-            <path d="M5 19H3c1 0 2-.5 2-1.5S4 16 3 16" stroke="currentColor" fill="none" stroke-width="1.5"/>
-          </svg>
-        </button>
-        <button class="format-btn" data-format="codeblock" title="Code Block">
-          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
-            <polyline points="16 18 22 12 16 6"/>
-            <polyline points="8 6 2 12 8 18"/>
-          </svg>
-        </button>
+        <div class="toolbar-group-items">
+          <button class="format-btn" data-format="quote" title="Blockquote">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M3 21c3 0 7-1 7-8V5c0-1.25-.756-2.017-2-2H4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2 1 0 1 0 1 1v1c0 1-1 2-2 2s-1 .008-1 1.031V21z"/>
+              <path d="M15 21c3 0 7-1 7-8V5c0-1.25-.757-2.017-2-2h-4c-1.25 0-2 .75-2 1.972V11c0 1.25.75 2 2 2h.75c0 2.25.25 4-2.75 4v3z"/>
+            </svg>
+          </button>
+          <button class="format-btn" data-format="ul" title="Unordered List">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="9" y1="6" x2="20" y2="6"/>
+              <line x1="9" y1="12" x2="20" y2="12"/>
+              <line x1="9" y1="18" x2="20" y2="18"/>
+              <circle cx="4" cy="6" r="2" fill="currentColor" stroke="none"/>
+              <circle cx="4" cy="12" r="2" fill="currentColor" stroke="none"/>
+              <circle cx="4" cy="18" r="2" fill="currentColor" stroke="none"/>
+            </svg>
+          </button>
+          <button class="format-btn" data-format="ol" title="Ordered List">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <line x1="10" y1="6" x2="20" y2="6"/>
+              <line x1="10" y1="12" x2="20" y2="12"/>
+              <line x1="10" y1="18" x2="20" y2="18"/>
+              <path d="M4 6h1v4" stroke="none" fill="currentColor"/>
+              <path d="M3 10h3" stroke="none" fill="currentColor"/>
+              <path d="M5 14H3c0-1 2-2 2-3s-1-1.5-2-1" stroke="currentColor" fill="none" stroke-width="1.5"/>
+              <path d="M5 19H3c1 0 2-.5 2-1.5S4 16 3 16" stroke="currentColor" fill="none" stroke-width="1.5"/>
+            </svg>
+          </button>
+          <button class="format-btn" data-format="codeblock" title="Code Block">
+            <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+              <polyline points="16 18 22 12 16 6"/>
+              <polyline points="8 6 2 12 8 18"/>
+            </svg>
+          </button>
+        </div>
       </div>
+
       <div class="toolbar-spacer"></div>
       <div class="word-count">
         <span id="word-count">0 words</span>

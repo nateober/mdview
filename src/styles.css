@@ -10,7 +10,7 @@
 
   /* Spacing (shared) */
   --header-height: 56px;
-  --toolbar-height: 44px;
+  --toolbar-height: 64px;
   --status-height: 28px;
 
   /* Transitions (shared) */
@@ -386,10 +386,72 @@ body.loaded #app {
   border-bottom: 1px solid var(--border-subtle);
 }
 
+/* Collapsible Toolbar Groups */
 .toolbar-group {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 2px;
+  flex-shrink: 0;
+}
+
+.toolbar-group-header {
+  display: flex;
+  align-items: center;
+  gap: 3px;
+  padding: 2px 6px;
+  background: transparent;
+  border: none;
+  border-radius: 4px;
+  font-family: var(--font-mono);
+  font-size: 0.55rem;
+  text-transform: uppercase;
+  letter-spacing: 0.1em;
+  color: var(--text-muted);
+  cursor: pointer;
+  transition: all var(--transition-fast);
+  white-space: nowrap;
+}
+
+.toolbar-group-header:hover {
+  color: var(--text-secondary);
+  background: var(--bg-hover);
+}
+
+.toolbar-group-header:focus-visible {
+  outline: 2px solid var(--accent-primary);
+  outline-offset: 1px;
+}
+
+.toolbar-group-header .group-label {
+  opacity: 0.8;
+}
+
+.toolbar-group-header .chevron {
+  width: 10px;
+  height: 10px;
+  transition: transform var(--transition-fast) cubic-bezier(0.34, 1.56, 0.64, 1);
+  flex-shrink: 0;
+}
+
+.toolbar-group.collapsed .toolbar-group-header .chevron {
+  transform: rotate(-90deg);
+}
+
+.toolbar-group-items {
   display: flex;
   align-items: center;
   gap: 2px;
+  max-height: 50px;
+  opacity: 1;
+  overflow: hidden;
+  transition: max-height 0.2s ease-out, opacity 0.15s ease-out;
+}
+
+.toolbar-group.collapsed .toolbar-group-items {
+  max-height: 0;
+  opacity: 0;
+  pointer-events: none;
 }
 
 .toolbar-divider {
@@ -1431,7 +1493,7 @@ body.loaded #app {
 @media (max-width: 768px) {
   :root {
     --header-height: 52px;
-    --toolbar-height: 48px;
+    --toolbar-height: 56px;
   }
 
   /* Header adjustments */
@@ -1469,6 +1531,15 @@ body.loaded #app {
 
   .toolbar-group {
     flex-shrink: 0;
+  }
+
+  /* Hide group labels on tablet, show only chevron */
+  .toolbar-group-header .group-label {
+    display: none;
+  }
+
+  .toolbar-group-header {
+    padding: 2px 4px;
   }
 
   .word-count {
@@ -1536,7 +1607,7 @@ body.loaded #app {
 @media (max-width: 640px) {
   :root {
     --header-height: 48px;
-    --toolbar-height: 44px;
+    --toolbar-height: 52px;
     --status-height: 32px;
   }
 
@@ -1605,8 +1676,13 @@ body.loaded #app {
     gap: 1px;
   }
 
-  .toolbar-group.file-group {
-    flex-shrink: 0;
+  /* Hide group headers on mobile - just show tools */
+  .toolbar-group-header {
+    display: none;
+  }
+
+  .toolbar-group-items {
+    max-height: none;
   }
 
   .toolbar-divider {

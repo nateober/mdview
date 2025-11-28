@@ -88,6 +88,7 @@ const STORAGE_KEYS = {
   cursorPos: 'mdview_cursorPos',
   scrollPos: 'mdview_scrollPos',
   theme: 'mdview_theme',
+  toolbarCollapsed: 'mdview_toolbar_collapsed',
 };
 
 // Theme management
@@ -108,6 +109,60 @@ function toggleTheme() {
   const newTheme = currentTheme === 'dark' ? 'light' : 'dark';
   setTheme(newTheme);
   showToast(`Switched to ${newTheme} mode`);
+}
+
+// Toolbar collapse management
+function initToolbarGroups() {
+  // Load saved collapsed states
+  let savedStates: Record<string, boolean> = {};
+  try {
+    const saved = localStorage.getItem(STORAGE_KEYS.toolbarCollapsed);
+    if (saved) {
+      savedStates = JSON.parse(saved);
+    }
+  } catch (e) {
+    console.warn('Failed to load toolbar states:', e);
+  }
+
+  // Set up each group
+  document.querySelectorAll('.toolbar-group[data-group]').forEach(group => {
+    const groupEl = group as HTMLElement;
+    const groupId = groupEl.dataset.group;
+    const header = groupEl.querySelector('.toolbar-group-header') as HTMLButtonElement;
+
+    if (!groupId || !header) return;
+
+    // Restore collapsed state
+    if (savedStates[groupId]) {
+      groupEl.classList.add('collapsed');
+      header.setAttribute('aria-expanded', 'false');
+    }
+
+    // Add click handler
+    header.addEventListener('click', () => {
+      const isCollapsed = groupEl.classList.toggle('collapsed');
+      header.setAttribute('aria-expanded', String(!isCollapsed));
+
+      // Save state
+      try {
+        const states: Record<string, boolean> = JSON.parse(
+          localStorage.getItem(STORAGE_KEYS.toolbarCollapsed) || '{}'
+        );
+        states[groupId] = isCollapsed;
+        localStorage.setItem(STORAGE_KEYS.toolbarCollapsed, JSON.stringify(states));
+      } catch (e) {
+        console.warn('Failed to save toolbar state:', e);
+      }
+    });
+
+    // Keyboard support
+    header.addEventListener('keydown', (e) => {
+      if (e.key === 'Enter' || e.key === ' ') {
+        e.preventDefault();
+        header.click();
+      }
+    });
+  });
 }
 
 // Save state to localStorage
@@ -175,6 +230,9 @@ function scheduleAutoSave() {
 function init() {
   // Initialize theme first (before content loads to prevent flash)
   initTheme();
+
+  // Initialize collapsible toolbar groups
+  initToolbarGroups();
 
   // Try to load from localStorage, otherwise show welcome content
   const loaded = loadFromLocalStorage();
